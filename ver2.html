@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INNOTEEN - Hệ sinh thái đổi mới sáng tạo cho Gen Z</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --light: #f8fafc;
+            --dark: #1e293b;
+        }
+        
+        body {
+            font-family: 'Sora', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Gradient animation */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        /* Shine effect */
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* Custom gradients */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            background-size: 300% 300%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        /* Floating elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-delay-1 {
+            animation-delay: 1s;
+        }
+        
+        .floating-delay-2 {
+            animation-delay: 2s;
+        }
+        
+        /* Glow effect */
+        .glow {
+            filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+        }
+        
+        /* Particle background */
+        .particle-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.2;
+        }
+        
+        /* Section divider */
+        .wave-divider {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+        
+        .wave-divider .shape-fill {
+            fill: #FFFFFF;
+        }
+        
+        /* Custom button */
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* Underline animation */
+        .underline-animation {
+            position: relative;
+        }
+        
+        .underline-animation::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .underline-animation:hover::after {
+            width: 100%;
+        }
+        
+        /* Custom checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .custom-checkbox:checked {
+            background-color: var(--primary);
+        }
+        
+        .custom-checkbox:checked::after {
+            content: '\2713';
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Floating particles background -->
+    <div class="particle-bg" id="particles-js"></div>
+    
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md py-4 px-6 shadow-sm transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mr-3">
+                    <i class="fas fa-lightbulb text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold gradient-text">INNOTEEN</h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="font-medium text-gray-700 hover:text-indigo-600 transition underline-animation">Trang chủ</a>
+                <a href="#" class="font-medium text-gray-700 hover:text-indigo-600 transition underline-animation">Hệ sinh thái</a>
+                <a href="#" class="font-medium text-gray-700 hover:text-indigo-600 transition underline-animation">Sự kiện</a>
+                <a href="#" class="font-medium text-gray-700 hover:text-indigo-600 transition underline-animation">Cộng đồng</a>
+                <a href="#" class="font-medium text-gray-700 hover:text-indigo-600 transition underline-animation">Liên hệ</a>
+            </nav>
+            
+            <div class="hidden md:flex items-center space-x-4">
+                <button class="px-6 py-2 rounded-full border border-indigo-500 text-indigo-600 hover:bg-indigo-50 transition">
+                    Đăng nhập
+                </button>
+                <button class="px-6 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:shadow-lg transition">
+                    Đăng ký
+                </button>
+            </div>
+            
+            <button class="md:hidden text-gray-700">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+<!-- Background elements -->
+<div class="absolute inset-0 overflow-hidden bg-white">
+  <!-- Floating circles pastel -->
+  <div class="absolute top-1/4 left-1/4 w-72 h-72 rounded-full bg-blue-200 opacity-10 blur-3xl floating"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-cyan-200 opacity-10 blur-3xl floating floating-delay-1"></div>
+  <div class="absolute top-1/3 right-1/3 w-[30rem] h-[30rem] rounded-full bg-teal-200 opacity-10 blur-3xl floating floating-delay-2"></div>
+
+  <!-- Hạt sáng lung linh -->
+  <div class="absolute w-full h-full pointer-events-none">
+    <div class="absolute w-2 h-2 bg-white rounded-full opacity-30 animate-twinkle" style="top:20%;left:10%;"></div>
+    <div class="absolute w-1.5 h-1.5 bg-white rounded-full opacity-20 animate-twinkle" style="top:50%;left:70%;animation-delay:1s;"></div>
+    <div class="absolute w-1.5 h-1.5 bg-white rounded-full opacity-20 animate-twinkle" style="top:70%;left:40%;animation-delay:2s;"></div>
+    <div class="absolute w-1.5 h-1.5 bg-white rounded-full opacity-20 animate-twinkle" style="top:30%;left:80%;animation-delay:3s;"></div>
+  </div>
+</div>
+
+  <!-- Watermark text giữ nguyên -->
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div class="text-[30vw] font-black opacity-10 text-indigo-300 select-none watermark-text" style="font-family: 'Inter', sans-serif; transform: translateY(-10%)">
+      INNOTEEN
+    </div>
+  </div>
+</div>
+        <!-- Floating circles -->
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-indigo-200 opacity-20 blur-3xl floating"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-purple-200 opacity-20 blur-3xl floating floating-delay-1"></div>
+        <div class="absolute top-1/3 right-1/3 w-96 h-96 rounded-full bg-pink-200 opacity-20 blur-3xl floating floating-delay-2"></div>
+    </div>
+    
+    <div class="container mx-auto px-6 py-20 flex flex-col items-center text-center relative z-10">
+        <!-- Animated logo -->
+        <div class="relative mb-8 group" data-cursor-interact>
+            <h1 class="text-6xl md:text-8xl font-black mb-6 gradient-text tracking-tighter relative z-10 logo-text wave-text">
+                INNOTEEN
+            </h1>
+            <div class="absolute -inset-4 bg-indigo-500 rounded-full opacity-10 blur-3xl -z-0 logo-glow"></div>
+        </div>
+        
+        <!-- Tagline -->
+        <p class="text-xl md:text-2xl max-w-3xl mb-12 text-gray-700 font-bold relative z-10">
+            Hệ sinh thái đổi mới sáng tạo dành riêng cho Gen Z - Nơi học tập, nghiên cứu và ứng dụng công nghệ tạo ra giá trị thực
+        </p>
+        
+        <!-- CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-16">
+            <button class="cta-button px-8 py-4 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+                <span class="flex items-center justify-center">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Khám phá ngay
+                </span>
+                <span class="absolute inset-0 rounded-full bg-white opacity-0 hover:opacity-10 transition-opacity"></span>
+            </button>
+            
+            <button class="cta-secondary px-8 py-4 rounded-full border-2 border-indigo-500 text-indigo-600 font-bold hover:bg-indigo-50 transition-all duration-300 transform hover:-translate-y-1">
+                <span class="flex items-center justify-center">
+                    <i class="fas fa-play-circle mr-2"></i>
+                    Xem video giới thiệu
+                </span>
+            </button>
+        </div>
+        
+        <!-- Tech icons -->
+        <div class="flex space-x-8 mb-16">
+            <div class="tech-icon animate-float">
+                <i class="fab fa-python text-3xl text-indigo-500"></i>
+            </div>
+            <div class="tech-icon animate-float-delay-1">
+                <i class="fas fa-robot text-3xl text-pink-500"></i>
+            </div>
+            <div class="tech-icon animate-float-delay-2">
+                <i class="fas fa-code text-3xl text-purple-500"></i>
+            </div>
+            <div class="tech-icon animate-float-delay-3">
+                <i class="fas fa-database text-3xl text-blue-500"></i>
+            </div>
+        </div>
+    </div>
+    
+    
+</section>
+
+<style>
+/* Font settings */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Watermark text */
+.watermark-text {
+    animation: watermark-float 15s infinite ease-in-out;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+@keyframes watermark-float {
+    0%, 100% {
+        transform: translateY(-10%) scale(1);
+        opacity: 0.1;
+    }
+    50% {
+        transform: translateY(-12%) scale(1.02);
+        opacity: 0.15;
+    }
+}
+
+/* Gradient text for logo */
+.gradient-text {
+    background: linear-gradient(90deg, #4f46e5, #7c3aed, #ec4899);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    font-weight: 900;
+}
+
+/* Logo wave effect */
+.wave-text {
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15); /* kính trong suốt */
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 0 50px rgba(255, 255, 255, 0.2); /* phản chiếu bên trong */
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+
+.wave-text {
+  animation: wave-animation 8s ease-in-out infinite;
+}
+
+/* Hover: to và sáng lung linh hơn */
+.wave-text:hover {
+  transform: scale(1.25);
+  box-shadow:
+    0 12px 48px rgba(255, 111, 44, 0.485),
+    0 0 60px rgba(251, 147, 11, 0.7),
+    inset 0 0 80px rgba(255, 255, 255, 0.3); /* tăng phản chiếu bên trong khi hover */
+}
+
+
+/* Logo glow effect */
+.logo-glow {
+    animation: glow-pulse 4s infinite ease-in-out;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        opacity: 0.1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.15;
+        transform: scale(1.05);
+    }
+}
+
+/* CTA button effects */
+.cta-button {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3);
+    font-weight: 700;
+}
+
+.cta-button:hover {
+    box-shadow: 0 15px 25px -5px rgba(79, 70, 229, 0.4);
+}
+
+.cta-secondary {
+    font-weight: 700;
+}
+
+/* Tech icons floating */
+.tech-icon {
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.animate-float-delay-1 {
+    animation-delay: 1s;
+}
+
+.animate-float-delay-2 {
+    animation-delay: 2s;
+}
+
+.animate-float-delay-3 {
+    animation-delay: 3s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+/* Wave divider styles */
+.wave-container {
+  background: linear-gradient(180deg, #000000 0%, #222222 100%);
+  position: relative;
+}
+
+.wave-divider {
+  width: 100%;
+  height: auto;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.wave-divider svg {
+  display: block;
+  min-width: 200%; /* cho phép sóng lặp mượt */
+}
+
+.shape-fill {
+  fill: url(#waveGradient);
+}
+
+.wave-1 {
+  animation: wave-move-1 15s ease-in-out infinite;
+}
+
+.wave-2 {
+  animation: wave-move-2 12s ease-in-out infinite reverse;
+}
+
+.wave-3 {
+  animation: wave-move-3 10s ease-in-out infinite;
+}
+
+@keyframes wave-move-1 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+@keyframes wave-move-2 {
+  0% { transform: translateX(0) scaleY(1.2); }
+  100% { transform: translateX(25%) scaleY(1.2); }
+}
+
+@keyframes wave-move-3 {
+  0% { transform: translateX(0) scaleY(1.1); }
+  100% { transform: translateX(-15%) scaleY(1.1); }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #4f46e5, #9333ea, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+    </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Floating circles animation
+    const circles = document.querySelectorAll('.floating');
+    circles.forEach((circle, index) => {
+        const duration = 8 + Math.random() * 4;
+        const delay = index * 2;
+        circle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+    });
+    
+    // Logo wave effect enhancement
+    const logoText = document.querySelector('.logo-text');
+    let wavePhase = 0;
+    
+    function updateWave() {
+        wavePhase += 0.005;
+        const waveOffset = Math.sin(wavePhase) * 3; // Reduced wave amplitude
+        
+        logoText.style.transform = `translateY(${waveOffset}px) rotate(${waveOffset * 0.2}deg)`;
+        requestAnimationFrame(updateWave);
+    }
+    
+    updateWave();
+});
+</script>
+
+    <!-- About Section -->
+    <section class="py-20 bg-white relative">
+        <div class="container mx-auto px-6">
+            <!-- Section header -->
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 bg-indigo-100 text-indigo-600 rounded-full text-sm font-semibold mb-4">
+                    VỀ CHÚNG TÔI
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
+                    Tuyên ngôn thương hiệu
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    INNOTEEN là hệ sinh thái đổi mới sáng tạo dành riêng cho sinh viên và thế hệ trẻ Gen Z, nơi các bạn không chỉ học tập mà còn ứng dụng tri thức để tạo ra giá trị thực sự.
+                </p>
+            </div>
+            
+            <!-- Value cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Goal card -->
+                <div class="bg-gradient-to-br from-white to-indigo-50 rounded-2xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 border border-gray-100 relative overflow-hidden card-hover">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-indigo-100 blur-xl opacity-30"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-xl bg-indigo-100 flex items-center justify-center mb-6">
+                            <i class="fas fa-bullseye text-indigo-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Mục tiêu</h3>
+                        <p class="text-gray-600 mb-6">
+                            Trở thành nền tảng hàng đầu giúp giới trẻ phát triển tư duy công nghệ, dữ liệu và đổi mới sáng tạo.
+                        </p>
+                        <div class="flex space-x-2">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-xs font-medium">Công nghệ</span>
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-xs font-medium">Dữ liệu</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mission card -->
+                <div class="bg-gradient-to-br from-white to-purple-50 rounded-2xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 border border-gray-100 relative overflow-hidden card-hover">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-purple-100 blur-xl opacity-30"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center mb-6">
+                            <i class="fas fa-hand-holding-heart text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Sứ mệnh</h3>
+                        <p class="text-gray-600 mb-6">
+                            Ủy quyền cho Gen Z – giúp họ làm chủ tri thức và công nghệ, kết nối cộng đồng cùng chí hướng.
+                        </p>
+                        <div class="flex space-x-2">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-xs font-medium">Trao quyền</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-xs font-medium">Kết nối</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Value card -->
+                <div class="bg-gradient-to-br from-white to-pink-50 rounded-2xl p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 border border-gray-100 relative overflow-hidden card-hover">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-pink-100 blur-xl opacity-30"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-xl bg-pink-100 flex items-center justify-center mb-6">
+                            <i class="fas fa-star text-pink-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Giá trị cốt lõi</h3>
+                        <p class="text-gray-600 mb-6">
+                            Chúng tôi xây dựng trên 5 giá trị nền tảng tạo nên sự khác biệt của INNOTEEN.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-xs font-medium">Thực chiến</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-xs font-medium">Cộng đồng</span>
+                            <span class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-xs font-medium">Sáng tạo</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-xs font-medium">Đóng góp</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs font-medium">Cởi mở</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Section -->
+    <section class="py-20 bg-gray-50 relative">
+        <!-- Background elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                <div class="absolute top-20 left-10 w-64 h-64 rounded-full bg-indigo-200 blur-3xl"></div>
+                <div class="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-purple-200 blur-3xl"></div>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <!-- Section header -->
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 bg-indigo-100 text-indigo-600 rounded-full text-sm font-semibold mb-4">
+                    HỆ SINH THÁI
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
+                    6 phân hệ vận hành như một vòng tuần hoàn
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Học tập - Nghiên cứu - Ứng dụng - Phát triển
+                </p>
+            </div>
+            
+            <!-- Ecosystem grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- INNOLABS -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-flask text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">InnoLABS</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Phòng thí nghiệm dữ liệu và công nghệ - Nơi nghiên cứu AI/ML, xử lý dữ liệu và khám phá công nghệ mới.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">AI/ML</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Data Analysis</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Research</span>
+                    </div>
+                </div>
+                
+                <!-- INNOX -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-users text-purple-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">InnoX</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Cộng đồng sáng tạo và kết nối - Tổ chức sự kiện, workshop, mentorship, hackathon.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Community</span>
+                        <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Events</span>
+                        <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Networking</span>
+                    </div>
+                </div>
+                
+                <!-- INNOMEDIA -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-lg bg-pink-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-chart-line text-pink-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">InnoMEDIA</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Dữ liệu truyền thông và xu hướng - Phân tích sentiment, xu hướng mạng xã hội, hành vi số.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full">Social Media</span>
+                        <span class="bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full">Trends</span>
+                        <span class="bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full">NLP</span>
+                    </div>
+                </div>
+                
+                <!-- INNOEDU -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-graduation-cap text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">InnoEDU</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Nền tảng học tập thực chiến - Khóa học nội bộ, AI tutor, bài tập thực hành, chứng chỉ thực chiến.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Learning</span>
+                        <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Courses</span>
+                        <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Certification</span>
+                    </div>
+                </div>
+                
+                <!-- INNOCAREERS -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-lg bg-yellow-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-briefcase text-yellow-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">InnoCAREERS</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Phát triển bản thân và nghề nghiệp - CV, portfolio, kỹ năng phỏng vấn, hướng nghiệp.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">Career</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">Portfolio</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">Jobs</span>
+                    </div>
+                </div>
+                
+                <!-- INNOSECTOR -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-industry text-red-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">InnoSECTOR</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Ứng dụng dữ liệu theo ngành nghề - Tạo ra các sản phẩm dữ liệu phục vụ tài chính, giáo dục, y tế.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">Industry</span>
+                        <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">Application</span>
+                        <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">Solutions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Journey Section -->
+    <section class="py-20 bg-white relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <!-- Section header -->
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-600 rounded-full text-sm font-semibold mb-4">
+                    HÀNH TRÌNH
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">
+                    Từ "Tò mò" đến "Thành thạo"
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Chỉ trong 6 bước đơn giản cùng INNOTEEN
+                </p>
+            </div>
+            
+            <!-- Journey timeline -->
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-indigo-500 to-purple-500 -ml-px"></div>
+                
+                <!-- Timeline items -->
+                <div class="space-y-12 md:space-y-0">
+                    <!-- Step 1 -->
+                    <div class="relative md:flex justify-between items-center">
+                        <div class="md:w-5/12 md:pr-12 mb-8 md:mb-0 text-right">
+                            <div class="inline-block px-4 py-2 bg-indigo-100 text-indigo-600 rounded-full text-sm font-semibold mb-2">
+                                Bước 1
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Tiếp cận & Tham gia</h3>
+                            <p class="text-gray-600">
+                                Thông qua workshop, hackathon tại INNOX hoặc social media INNOMEDIA
+                            </p>
+                        </div>
+                        
+                        <div class="hidden md:block w-1/12 flex-shrink-0 text-center">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center mx-auto shadow-lg">
+                                <span class="text-white text-2xl">1</span>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12"></div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="relative md:flex justify-between items-center">
+                        <div class="md:w-5/12"></div>
+                        
+                        <div class="hidden md:block w-1/12 flex-shrink-0 text-center">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 flex items-center justify-center mx-auto shadow-lg">
+                                <span class="text-white text-2xl">2</span>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12 md:pl-12 mb-8 md:mb-0 text-left">
+                            <div class="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-2">
+                                Bước 2
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Học tập kiến thức</h3>
+                            <p class="text-gray-600">
+                                INNOEDU cung cấp kiến thức nền tảng từ cơ bản đến nâng cao
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="relative md:flex justify-between items-center">
+                        <div class="md:w-5/12 md:pr-12 mb-8 md:mb-0 text-right">
+                            <div class="inline-block px-4 py-2 bg-purple-100 text-purple-600 rounded-full text-sm font-semibold mb-2">
+                                Bước 3
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Thực hành kỹ năng</h3>
+                            <p class="text-gray-600">
+                                INNOLABS là "phòng gym" để rèn luyện kỹ năng qua các dự án thực tế
+                            </p>
+                        </div>
+                        
+                        <div class="hidden md:block w-1/12 flex-shrink-0 text-center">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mx-auto shadow-lg">
+                                <span class="text-white text-2xl">3</span>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12"></div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="relative md:flex justify-between items-center">
+                        <div class="md:w-5/12"></div>
+                        
+                        <div class="hidden md:block w-1/12 flex-shrink-0 text-center">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center mx-auto shadow-lg">
+                                <span class="text-white text-2xl">4</span>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12 md:pl-12 mb-8 md:mb-0 text-left">
+                            <div class="inline-block px-4 py-2 bg-pink-100 text-pink-600 rounded-full text-sm font-semibold mb-2">
+                                Bước 4
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Ứng dụng thực tế</h3>
+                            <p class="text-gray-600">
+                                INNOSECTOR giúp áp dụng kiến thức vào giải quyết bài toán thực tế
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 5 -->
+                    <div class="relative md:flex justify-between items-center">
+                        <div class="md:w-5/12 md:pr-12 mb-8 md:mb-0 text-right">
+                            <div class="inline-block px-4 py-2 bg-yellow-100 text-yellow-600 rounded-full text-sm font-semibold mb-2">
+                                Bước 5
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Kết nối cộng đồng</h3>
+                            <p class="text-gray-600">
+                                INNOX mở rộng mạng lưới quan hệ với các chuyên gia và doanh nghiệp
+                            </p>
+                        </div>
+                        
+                        <div class="hidden md:block w-1/12 flex-shrink-0 text-center">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center mx-auto shadow-lg">
+                                <span class="text-white text-2xl">5</span>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12"></div>
+                    </div>
+                    
+                    <!-- Step 6 -->
+                    <div class="relative md:flex justify-between items-center">
+                        <div class="md:w-5/12"></div>
+                        
+                        <div class="hidden md:block w-1/12 flex-shrink-0 text-center">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center mx-auto shadow-lg">
+                                <span class="text-white text-2xl">6</span>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-5/12 md:pl-12 mb-8 md:mb-0 text-left">
+                            <div class="inline-block px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm font-semibold mb-2">
+                                Bước 6
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Thành công bền vững</h3>
+                            <p class="text-gray-600">
+                                INNOCAREERS đồng hành xây dựng sự nghiệp thăng hoa
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg relative overflow-hidden">
+        <!-- Background elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-30">
+                <div class="absolute top-1/3 left-1/4 w-64 h-64 rounded-full bg-white blur-3xl"></div>
+                <div class="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-white blur-3xl"></div>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+                Sẵn sàng tham gia hệ sinh thái INNOTEEN?
+            </h2>
+            <p class="text-xl text-white/90 mb-10 max-w-3xl mx-auto">
+                Hãy trở thành một phần của cộng đồng Gen Z đổi mới sáng tạo và làm chủ công nghệ tương lai
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <button class="px-8 py-4 rounded-full bg-white text-indigo-600 font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Tìm hiểu thêm
+                </button>
+                <button class="px-8 py-4 rounded-full bg-black text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    Đăng ký ngay
+                </button>
+            </div>
+            
+            <div class="mt-10 flex justify-center space-x-6">
+                <div class="flex items-center">
+                    <div class="flex -space-x-2">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="User" class="w-8 h-8 rounded-full border-2 border-white">
+                        <img src="https://randomuser.me/api/portraits/men/15.jpg" alt="User" class="w-8 h-8 rounded-full border-2 border-white">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User" class="w-8 h-8 rounded-full border-2 border-white">
+                    </div>
+                    <span class="ml-3 text-white/90 text-sm">Đã có <span class="font-bold">10,000+</span> thành viên</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-20 pb-12 relative">
+
+        
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <!-- About -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mr-3">
+                            <i class="fas fa-lightbulb text-white"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold gradient-text">INNOTEEN</h1>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Hệ sinh thái đổi mới sáng tạo dành riêng cho Gen Z
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-indigo-600 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-blue-400 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-pink-600 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-red-500 transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Ecosystem -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white">Hệ sinh thái</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            InnoEDU
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            InnoLABS
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            InnoSECTOR
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            InnoCAREERS
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            InnoMEDIA
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white">Liên kết</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            Sự kiện
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            Blog
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            Cộng đồng
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            Tuyển dụng
+                        </a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i>
+                            Liên hệ
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white">Đăng ký nhận tin</h4>
+                    <p class="text-gray-400 mb-6">
+                        Nhận thông tin mới nhất về sự kiện và khóa học từ INNOTEEN
+                    </p>
+                    <form class="flex">
+                        <input type="email" placeholder="Email của bạn" class="px-4 py-3 rounded-l-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full">
+                        <button type="submit" class="px-4 py-3 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <div class="mt-4 flex items-center">
+                        <input type="checkbox" id="agree-terms" class="custom-checkbox mr-2">
+                        <label for="agree-terms" class="text-gray-400 text-sm">Tôi đồng ý với điều khoản sử dụng</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 mb-4 md:mb-0">© 2025 INNOTEEN. Tất cả quyền được bảo lưu.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white transition">Điều khoản</a>
+                    <a href="#" class="text-gray-500 hover:text-white transition">Bảo mật</a>
+                    <a href="#" class="text-gray-500 hover:text-white transition">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-indigo-600 text-white shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+                header.classList.remove('bg-opacity-90');
+                header.classList.add('bg-opacity-95');
+            } else {
+                header.classList.remove('shadow-lg');
+                header.classList.add('bg-opacity-90');
+                header.classList.remove('bg-opacity-95');
+            }
+        });
+        
+        // Mobile menu toggle
+        document.querySelector('button.md\\:hidden').addEventListener('click', function() {
+            alert('Mobile menu would open here in a complete implementation');
+        });
+        
+        // Particles.js configuration
+        document.addEventListener('DOMContentLoaded', function() {
+            // This would be replaced with actual particles.js implementation
+            console.log('Particles.js would be initialized here');
+        });
+    </script>
+</body>
+</html>
